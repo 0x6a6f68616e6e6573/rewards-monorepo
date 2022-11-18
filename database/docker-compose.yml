@@ -1,0 +1,13 @@
+version: "3.3"
+services:
+  db:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./var/pgdata:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+    ports:
+      - "5432:5432"
