@@ -1,0 +1,14 @@
+{
+  "name": "proto",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "generate": "tsproto --path . --template template.hbs"
+  },
+  "dependencies": {
+    "nestjs-proto-gen-ts": "^1.0.21"
+  },
+  "devDependencies": {
+    "tsconfig": "*"
+  }
+}

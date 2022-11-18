@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package hero;
+
+service HeroService {
+  rpc FindOne (HeroById) returns (Hero) {}
+  rpc FindMany (stream HeroById) returns (stream Hero);
+}
+
+message HeroById {
+  string id = 1;
+}
+
+// Default is [required]
+// Optional adds the [?] operator
+message Hero {
+  required string id = 1;
+  optional string name = 2;
+}
