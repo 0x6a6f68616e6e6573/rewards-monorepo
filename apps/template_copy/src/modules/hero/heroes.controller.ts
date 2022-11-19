@@ -34,18 +34,6 @@ export class HeroesController implements OnModuleInit {
 
   @GrpcStreamMethod('HeroService')
   findMany(data$: Observable<hero.HeroById>): Observable<hero.Hero> {
-    const hero$ = new Subject<hero.Hero>();
-
-    const onNext = (heroById: hero.HeroById) => {
-      const item = this.items.find(({ id }) => id === heroById.id);
-      hero$.next(item);
-    };
-    const onComplete = () => hero$.complete();
-    data$.subscribe({
-      next: onNext,
-      complete: onComplete,
-    });
-
-    return hero$.asObservable();
+    return this.heroesService.findMany(data$);
   }
 }

@@ -1,6 +1,6 @@
 import { ClientOptions, Transport } from '@nestjs/microservices';
 
-const HeroProtoPath = require.resolve('proto/hero/hero.proto');
+const HeroProtoPath = require.resolve('proto/src/hero/hero.proto');
 
 export const grpcClientOptions: ClientOptions = {
   transport: Transport.GRPC,

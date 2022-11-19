@@ -1,7 +1,6 @@
 {
   "extends": "tsconfig/base.json",
   "compilerOptions": {
-    "declaration": false,
     "outDir": "../../dist/apps/template_copy"
   },
   "include": ["src/**/*"],

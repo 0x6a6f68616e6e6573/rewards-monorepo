@@ -1,1 +1,1 @@
-export { hero } from './hero/hero';
+export * from './src/index';

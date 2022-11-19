@@ -419,3 +419,6 @@ yarn-error.log*
 
 # yarn
 .yarn
+
+# database
+/database/var

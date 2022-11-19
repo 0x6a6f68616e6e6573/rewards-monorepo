@@ -1,6 +1,6 @@
 import { Metadata } from '@grpc/grpc-js';
 import { Injectable } from '@nestjs/common';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 
 import { hero } from 'proto';
 
@@ -21,11 +21,25 @@ export class HeroesService implements hero.HeroService {
     });
   }
   findMany(
-    data: Observable<hero.HeroById>,
+    data$: Observable<hero.HeroById>,
     metadata?: Metadata,
     ...rest: any[]
   ): Observable<hero.Hero> {
-    throw new Error('Method not implemented.');
+    const hero$ = new Subject<hero.Hero>();
+
+    const onNext = async (heroById: hero.HeroById) => {
+      const item: any = await new Promise((resolve, reject) => {
+        resolve({ id: '0', name: 'jo' });
+      });
+      hero$.next(item);
+    };
+    const onComplete = () => hero$.complete();
+    data$.subscribe({
+      next: onNext,
+      complete: onComplete,
+    });
+
+    return hero$.asObservable();
   }
 
   handle<Result>(promise: Promise<any>): Observable<Result> {

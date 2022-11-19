@@ -1,6 +1,9 @@
 {
   "name": "proto",
   "version": "0.0.0",
+  "files": [
+    "**/**.*"
+  ],
   "private": true,
   "scripts": {
     "generate": "tsproto --path . --template template.hbs"

@@ -1,17 +1,25 @@
 import { Metadata } from '@grpc/grpc-js';
 import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/sequelize';
-import { mergeMap, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
-import { hero } from 'proto';
-import { Hero } from '../../models/hero.model';
+import { hero } from 'proto/src';
 
 @Injectable()
 export class HeroesService implements hero.HeroService {
-  constructor(
-    @InjectModel(Hero)
-    private heroModel: typeof Hero
-  ) {}
+  findOne(
+    data: hero.HeroById,
+    metadata?: Metadata,
+    ...rest: any[]
+  ): Observable<hero.Hero> {
+    throw new Error('Method not implemented.');
+  }
+  findMany(
+    data: Observable<hero.HeroById>,
+    metadata?: Metadata,
+    ...rest: any[]
+  ): Observable<hero.Hero> {
+    throw new Error('Method not implemented.');
+  }
 
   handle<Result>(promise: Promise<any>): Observable<Result> {
     return new Observable((subscriber) => {
@@ -26,25 +34,5 @@ export class HeroesService implements hero.HeroService {
         })
         .finally(() => subscriber.complete());
     });
-  }
-
-  findOne(
-    data: hero.HeroById,
-    _metadata?: Metadata,
-    ..._rest: any[]
-  ): Observable<hero.Hero> {
-    return this.handle(this.heroModel.findOne({ where: { data } }));
-  }
-
-  findMany(
-    data: Observable<hero.HeroById>,
-    _metadata?: Metadata,
-    ..._rest: any[]
-  ): Observable<hero.Hero> {
-    return data.pipe(
-      mergeMap((input) => {
-        return this.findOne(input);
-      })
-    );
   }
 }

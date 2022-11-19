@@ -2,7 +2,13 @@ import { Provider } from '@nestjs/common';
 import { Sequelize } from 'sequelize-typescript';
 
 import { PinoLogger } from 'nestjs-pino';
-import { Hero } from '../../models/hero.model';
+import { Model } from 'sequelize';
+
+const models: any[] = [];
+
+export function add(model: Model) {
+  models.push(model);
+}
 
 export const DatabaseProvider: Provider = {
   provide: 'SEQUELIZE',
@@ -20,7 +26,7 @@ export const DatabaseProvider: Provider = {
       },
     });
 
-    db.addModels([Hero]);
+    db.addModels(models);
 
     await db.sync();
 
